@@ -42,7 +42,7 @@ fn part2(lines: &Vec<String>) {
 }
 
 fn main() {
-    let file = File::open("input.txt").unwrap();
+    let file = File::open("inputs/day3.txt").unwrap();
     let reader = BufReader::new(file);
     let lines = reader.lines().collect::<Result<Vec<_>, _>>().unwrap();
 

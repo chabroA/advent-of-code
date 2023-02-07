@@ -48,7 +48,7 @@ fn part1(lines: &Vec<String>) {
         my_total_score += my_score;
     }
 
-    println!("My total score: {my_total_score}");
+    dbg!(my_total_score);
 }
 
 fn part2(lines: &Vec<String>) {
@@ -93,11 +93,11 @@ fn part2(lines: &Vec<String>) {
         my_total_score += my_score;
     }
 
-    println!("My total score: {my_total_score}");
+    dbg!(my_total_score);
 }
 
 fn main() {
-    let file = File::open("input.txt").unwrap();
+    let file = File::open("inputs/day2.txt").unwrap();
     let reader = BufReader::new(file);
     let lines = reader.lines().collect::<Result<Vec<_>, _>>().unwrap();
 

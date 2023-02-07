@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 fn main() {
-    let file = File::open("input.txt").unwrap();
+    let file = File::open("inputs/day1.txt").unwrap();
     let reader = BufReader::new(file);
 
     let mut elf_calories = vec![0];
@@ -20,9 +20,9 @@ fn main() {
     }
 
     let max_calories = elf_calories.iter().max().unwrap();
-    println!("Max calories: {max_calories}");
+    dbg!(max_calories);
 
     elf_calories.sort();
-    let test: i32 = elf_calories.iter().rev().take(3).sum();
-    println!("Top 3: {test}");
+    let top3: i32 = elf_calories.iter().rev().take(3).sum();
+    dbg!(top3);
 }
