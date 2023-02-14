@@ -1,106 +1,52 @@
-use std::collections::HashMap;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+fn part1() -> u32 {
+    let input = std::fs::read_to_string("inputs/day2.txt").unwrap();
 
-fn part1(lines: &Vec<String>) {
-    let mut scores = HashMap::new();
+    input
+        .lines()
+        .map(|line| {
+            // transform A B C and X Y Z to 0 1 2 respectively by using their ASCII order
+            let bytes = line.as_bytes();
+            let left = (bytes[0] - b'A') as i8;
+            let right = (bytes[2] - b'X') as i8;
 
-    scores.insert("A", 1);
-    scores.insert("B", 2);
-    scores.insert("C", 3);
+            // 0 for rock, 1 for paper, 2 for scissors
+            // 0 for loss, 1 for draw, 2 for win
+            let oponent_shape = left;
+            let my_shape = right;
+            let outcome = (my_shape - oponent_shape + 1).rem_euclid(3);
 
-    scores.insert("X", 1);
-    scores.insert("Y", 2);
-    scores.insert("Z", 3);
-
-    let mut my_total_score = 0;
-
-    for line in lines {
-        let line: Vec<&str> = line.split(' ').collect();
-
-        let oponent_move = line[0];
-        let my_move = line[1];
-
-        let outcome = match oponent_move {
-            "A" => match my_move {
-                "X" => 3,
-                "Y" => 6,
-                "Z" => 0,
-                _ => panic!("Invalid move"),
-            },
-            "B" => match my_move {
-                "X" => 0,
-                "Y" => 3,
-                "Z" => 6,
-                _ => panic!("Invalid move"),
-            },
-            "C" => match my_move {
-                "X" => 6,
-                "Y" => 0,
-                "Z" => 3,
-                _ => panic!("Invalid move"),
-            },
-            _ => panic!("Invalid move"),
-        };
-
-        let my_score = scores[my_move] + outcome;
-
-        my_total_score += my_score;
-    }
-
-    dbg!(my_total_score);
+            let shape_score = my_shape + 1;
+            let outcome_score = 3 * outcome;
+            (shape_score + outcome_score) as u32
+        })
+        .sum::<u32>()
 }
 
-fn part2(lines: &Vec<String>) {
-    let mut scores = HashMap::new();
+fn part2() -> u32 {
+    let input = std::fs::read_to_string("inputs/day2.txt").unwrap();
 
-    scores.insert("X", 0);
-    scores.insert("Y", 3);
-    scores.insert("Z", 6);
+    input
+        .lines()
+        .map(|line| {
+            // transform A B C and X Y Z to 0 1 2 respectively by using their ASCII order
+            let bytes = line.as_bytes();
+            let left = (bytes[0] - b'A') as i8;
+            let right = (bytes[2] - b'X') as i8;
 
-    let mut my_total_score = 0;
+            // 0 for rock, 1 for paper, 2 for scissors
+            // 0 for loss, 1 for draw, 2 for win
+            let oponent_shape = left;
+            let outcome = right;
+            let my_shape = (oponent_shape - 1 + outcome).rem_euclid(3);
 
-    for line in lines {
-        let line: Vec<&str> = line.split(' ').collect();
-
-        let oponent_move = line[0];
-        let outcome = line[1];
-
-        let my_move = match outcome {
-            "X" => match oponent_move {
-                "A" => 3,
-                "B" => 1,
-                "C" => 2,
-                _ => panic!("Invalid move"),
-            },
-            "Y" => match oponent_move {
-                "A" => 1,
-                "B" => 2,
-                "C" => 3,
-                _ => panic!("Invalid move"),
-            },
-            "Z" => match oponent_move {
-                "A" => 2,
-                "B" => 3,
-                "C" => 1,
-                _ => panic!("Invalid move"),
-            },
-            _ => panic!("Invalid outcome"),
-        };
-
-        let my_score = scores[outcome] + my_move;
-
-        my_total_score += my_score;
-    }
-
-    dbg!(my_total_score);
+            let shape_score = my_shape + 1;
+            let outcome_score = 3 * outcome;
+            (shape_score + outcome_score) as u32
+        })
+        .sum::<u32>()
 }
 
 fn main() {
-    let file = File::open("inputs/day2.txt").unwrap();
-    let reader = BufReader::new(file);
-    let lines = reader.lines().collect::<Result<Vec<_>, _>>().unwrap();
-
-    part1(&lines);
-    part2(&lines);
+    println!("Part 1: {}", part1());
+    println!("Part 2: {}", part2());
 }
