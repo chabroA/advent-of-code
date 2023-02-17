@@ -1,6 +1,6 @@
 use std::fs;
 
-pub const DAYS: u8 = 10;
+pub const DAYS: u8 = 11;
 
 pub struct Solution {
     pub part1: String,
@@ -60,6 +60,7 @@ pub fn run(day: u8, input: String) -> Solution {
         8 => run_day::<crate::day08::Data>(&input),
         9 => run_day::<crate::day09::Data>(&input),
         10 => run_day::<crate::day10::Data>(&input),
+        11 => run_day::<crate::day11::Data>(&input),
         _ => panic!("Day {day} not implemented"),
     }
 }
